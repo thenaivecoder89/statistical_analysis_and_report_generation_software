@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+SQLAlchemy>=2.0
+psycopg2-binary
+python-dotenv
+Mistral 8-bit Quantized 7B parameter model - mistral-7b-instruct-v0.2.Q8_0.gguf
