@@ -111,7 +111,7 @@ insert_into_questionnaire_db = text(
 )
 
 # Function to insert records into questionnaire_db table
-def insert_into_questionnaire_db(payload: dict):
+def insert_into_questionnaire(payload: dict):
     with engine.begin() as conn:
         conn.execute(insert_into_questionnaire_db, payload)
 

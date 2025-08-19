@@ -22,7 +22,7 @@ app.add_middleware(
 
 @app.post('/questionnaire', status_code=201)
 def create_questionnaire(payload: dict):
-    db.insert_into_questionnaire_db(payload)
+    db.insert_into_questionnaire(payload)
     return {'status':'ok'}
 
 @app.get('/hs_codes', status_code=200)
