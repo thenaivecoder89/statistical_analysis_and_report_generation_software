@@ -29,6 +29,10 @@ def create_questionnaire(payload: dict):
 def get_hs_codes():
     return db.select_from_hs_codes_db()
 
+@app.get('/questionnaire_fetch', status_code=200)
+def get_questionnaire_db():
+    return db.select_from_questionnaire_db()
+
 @app.get('/healthz', status_code=200)
 def get_healthz():
     return PlainTextResponse('ok')
