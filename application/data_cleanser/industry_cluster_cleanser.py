@@ -13,7 +13,7 @@ query_string = text("""
                         where
                         primary_industry <> 'NA'
                         and company_sector <> 'NA'
-                        and product_hs_code <> 'NA' or product_hs_code is not null
+                        and product_hs_code <> 'NA'
                     """)
 
 with db.engine.begin() as con:
