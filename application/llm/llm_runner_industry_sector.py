@@ -16,14 +16,14 @@ key = os.getenv('key')
 client = OpenAI(api_key=key)
 
 # Cross-Tab dataset development - for llm
-heat_industry_sector, p_industry_sector = ctis(show_plot=False)
-heat_industry_product, p_industry_product = ctihs(show_plot=False)
+heat_industry_sector, p_industry_sector, fig_industry_sector = ctis(show_plot=False)
+heat_industry_product, p_industry_product, fig_industry_product = ctihs(show_plot=False)
 data_ctis_dataset = json.dumps(heat_industry_sector.to_dict(), indent=2)
 data_ctihs_dataset = json.dumps(heat_industry_product.to_dict(), indent=2)
 
 # Dendo dataset development - for llm
-dendo_industry_sector, p_dendo_industry_sector = dis(show_plot=False)
-dendo_industry_product, p_dendo_industry_product = dip(show_plot=False)
+dendo_industry_sector, p_dendo_industry_sector, fig_dendo_industry_sector = dis(show_plot=False)
+dendo_industry_product, p_dendo_industry_product, fig_dendo_industry_product = dip(show_plot=False)
 data_dis_dataset = json.dumps(dendo_industry_sector.to_dict(), indent=2)
 data_dip_dataset = json.dumps(dendo_industry_product.to_dict(), indent=2)
 
@@ -71,7 +71,7 @@ def llm_industry_sector_cross_tabulation():
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
     # Convert plot to BytesIO for API
     buf = io.BytesIO()
-    ctis(show_plot=True).savefig(buf, format="png")
+    fig_industry_sector.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     return output, buf
     # print(output) #Comment this out before exposing on API.
@@ -121,7 +121,7 @@ def llm_industry_hs_codes_cross_tabulation():
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
     # Convert plot to BytesIO for API
     buf = io.BytesIO()
-    ctihs(show_plot=True).savefig(buf, format="png")
+    fig_industry_product.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     return output, buf
     # print(output) #Comment this out before exposing on API.
@@ -172,7 +172,7 @@ def llm_industry_sector_dendogram():
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
     # Convert plot to BytesIO for API
     buf = io.BytesIO()
-    dis(show_plot=True).savefig(buf, format="png")
+    fig_dendo_industry_sector.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     return output, buf
     # print(output) #Comment this out before exposing on API.
@@ -223,7 +223,7 @@ def llm_industry_product_dendogram():
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
     # Convert plot to BytesIO for API
     buf = io.BytesIO()
-    dip(show_plot=True).savefig(buf, format="png")
+    fig_dendo_industry_product.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     return output, buf
     # print(output) #Comment this out before exposing on API.
