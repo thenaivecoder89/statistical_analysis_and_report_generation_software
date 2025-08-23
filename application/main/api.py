@@ -4,7 +4,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from starlette.responses import PlainTextResponse
-
+from application.llm.llm_runner_industry_sector import llm_industry_sector_cross_tabulation as ctis_llm
+from application.llm.llm_runner_industry_sector import llm_industry_hs_codes_cross_tabulation as ctihs_llm
+from application.llm.llm_runner_industry_sector import llm_industry_sector_dendogram as dis_llm
+from application.llm.llm_runner_industry_sector import llm_industry_product_dendogram as dip_llm
 from application.database import database as db
 
 load_dotenv()
@@ -36,6 +39,22 @@ def get_questionnaire_db():
 @app.get('/healthz', status_code=200)
 def get_healthz():
     return PlainTextResponse('ok')
+
+@app.get('/industry_cluster_sector_analysis_cross_tab', status_code=200)
+def get_industry_sector_analysis_cross_tab():
+    return ctis_llm()
+
+@app.get('/industry_cluster_product_analysis_cross_tab', status_code=200)
+def get_industry_product_analysis_cross_tab():
+    return ctihs_llm()
+
+@app.get('/industry_cluster_sector_analysis_dendogram', status_code=200)
+def get_industry_sector_analysis_dendogram():
+    return dis_llm()
+
+@app.get('/industry_cluster_product_analysis_dendogram', status_code=200)
+def get_industry_product_analysis_dendogram():
+    return dip_llm()
 
 # The following code snippet is just to test the API on local machine. Will not be needed when published.
 if __name__ == '__main__':
