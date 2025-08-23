@@ -68,8 +68,9 @@ def llm_industry_sector_cross_tabulation():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    print(output)
-    ctis(show_plot=True)
+    return output, ctis(show_plot=True)
+    # print(output) #Comment this out before exposing on API.
+    # ctis(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_sector_cross_tabulation()) #Comment this out before exposing on API.
 
 # Call LLM for industry and hs codes analysis - cross tabulation
@@ -113,8 +114,9 @@ def llm_industry_hs_codes_cross_tabulation():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    print(output)
-    ctihs(show_plot=True)
+    return output, ctihs(show_plot=True)
+    # print(output) #Comment this out before exposing on API.
+    # ctihs(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_hs_codes_cross_tabulation()) #Comment this out before exposing on API.
 
 # Call LLM for industry and sector analysis - dendogram
@@ -159,8 +161,9 @@ def llm_industry_sector_dendogram():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    print(output)
-    dis(show_plot=True)
+    return output, dis(show_plot=True)
+    # print(output) #Comment this out before exposing on API.
+    # dis(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_sector_dendogram())  # Comment this out before exposing on API.
 
 # Call LLM for industry and product analysis - dendogram
@@ -205,6 +208,7 @@ def llm_industry_product_dendogram():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    print(output)
-    dip(show_plot=True)
+    return output, dip(show_plot=True)
+    # print(output) #Comment this out before exposing on API.
+    # dip(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_product_dendogram())  # Comment this out before exposing on API.
