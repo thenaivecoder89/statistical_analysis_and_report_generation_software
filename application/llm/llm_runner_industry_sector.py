@@ -6,6 +6,7 @@ from application.analytics_engines.industry_cleanser_analysis import dendogram_i
 import os
 from dotenv import load_dotenv
 import json
+import io
 
 # Initialize environment
 load_dotenv()
@@ -68,7 +69,11 @@ def llm_industry_sector_cross_tabulation():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    return output, ctis(show_plot=True)
+    # Convert plot to BytesIO for API
+    buf = io.BytesIO()
+    ctis(show_plot=True).savefig(buf, format="png")
+    buf.seek(0)
+    return output, buf
     # print(output) #Comment this out before exposing on API.
     # ctis(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_sector_cross_tabulation()) #Comment this out before exposing on API.
@@ -114,7 +119,11 @@ def llm_industry_hs_codes_cross_tabulation():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    return output, ctihs(show_plot=True)
+    # Convert plot to BytesIO for API
+    buf = io.BytesIO()
+    ctihs(show_plot=True).savefig(buf, format="png")
+    buf.seek(0)
+    return output, buf
     # print(output) #Comment this out before exposing on API.
     # ctihs(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_hs_codes_cross_tabulation()) #Comment this out before exposing on API.
@@ -161,7 +170,11 @@ def llm_industry_sector_dendogram():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    return output, dis(show_plot=True)
+    # Convert plot to BytesIO for API
+    buf = io.BytesIO()
+    dis(show_plot=True).savefig(buf, format="png")
+    buf.seek(0)
+    return output, buf
     # print(output) #Comment this out before exposing on API.
     # dis(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_sector_dendogram())  # Comment this out before exposing on API.
@@ -208,7 +221,11 @@ def llm_industry_product_dendogram():
     content = response.choices[0].message.content
     j_load = json.loads(content)
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
-    return output, dip(show_plot=True)
+    # Convert plot to BytesIO for API
+    buf = io.BytesIO()
+    dip(show_plot=True).savefig(buf, format="png")
+    buf.seek(0)
+    return output, buf
     # print(output) #Comment this out before exposing on API.
     # dip(show_plot=True) #Comment this out before exposing on API.
 # print(llm_industry_product_dendogram())  # Comment this out before exposing on API.
