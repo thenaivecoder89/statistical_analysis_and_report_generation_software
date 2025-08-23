@@ -1,9 +1,10 @@
+import base64
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from starlette.responses import PlainTextResponse
+from starlette.responses import PlainTextResponse, JSONResponse
 from application.llm.llm_runner_industry_sector import llm_industry_sector_cross_tabulation as ctis_llm
 from application.llm.llm_runner_industry_sector import llm_industry_hs_codes_cross_tabulation as ctihs_llm
 from application.llm.llm_runner_industry_sector import llm_industry_sector_dendogram as dis_llm
@@ -42,19 +43,55 @@ def get_healthz():
 
 @app.get('/industry_cluster_sector_analysis_cross_tab', status_code=200)
 def get_industry_sector_analysis_cross_tab():
-    return ctis_llm()
+    output, buf = ctis_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
 
 @app.get('/industry_cluster_product_analysis_cross_tab', status_code=200)
 def get_industry_product_analysis_cross_tab():
-    return ctihs_llm()
+    output, buf = ctihs_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
 
 @app.get('/industry_cluster_sector_analysis_dendogram', status_code=200)
 def get_industry_sector_analysis_dendogram():
-    return dis_llm()
+    output, buf = dis_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
 
 @app.get('/industry_cluster_product_analysis_dendogram', status_code=200)
 def get_industry_product_analysis_dendogram():
-    return dip_llm()
+    output, buf = dip_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
 
 # The following code snippet is just to test the API on local machine. Will not be needed when published.
 if __name__ == '__main__':
