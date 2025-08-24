@@ -111,6 +111,6 @@ def llm_showroom_kde():
     output = json.dumps(j_load, indent=2, ensure_ascii=False)
     # Convert plot to BytesIO for API
     buf = io.BytesIO()
-    fig_showroom.savefig(buf, format="png", bbox_inches="tight")
+    fig_kde_showroom.savefig(buf, format="png", bbox_inches="tight")
     buf.seek(0)
     return output, buf
