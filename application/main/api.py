@@ -9,6 +9,8 @@ from application.llm.llm_runner_industry_sector import llm_industry_sector_cross
 from application.llm.llm_runner_industry_sector import llm_industry_hs_codes_cross_tabulation as ctihs_llm
 from application.llm.llm_runner_industry_sector import llm_industry_sector_dendogram as dis_llm
 from application.llm.llm_runner_industry_sector import llm_industry_product_dendogram as dip_llm
+from application.llm.llm_runner_showroom import llm_showroom_histogram as hs_llm
+from application.llm.llm_runner_showroom import llm_showroom_kde as ks_llm
 from application.database import database as db
 
 load_dotenv()
@@ -83,6 +85,32 @@ def get_industry_sector_analysis_dendogram():
 @app.get('/industry_cluster_product_analysis_dendogram', status_code=200)
 def get_industry_product_analysis_dendogram():
     output, buf = dip_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/showroom_size_analysis_histogram', status_code=200)
+def get_showroom_size_analysis_histogram():
+    output, buf = hs_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/showroom_size_analysis_kde', status_code=200)
+def get_showroom_size_analysis_kde():
+    output, buf = ks_llm()
     buf.seek(0)
     img_b64 = base64.b64encode(buf.read()).decode('ascii')
     api_output = JSONResponse(
