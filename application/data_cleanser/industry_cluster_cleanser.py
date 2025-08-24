@@ -1,5 +1,5 @@
 from application.database import database as db
-from sqlalchemy import create_engine, text
+from sqlalchemy import text
 import pandas as pd
 
 
