@@ -11,6 +11,10 @@ from application.llm.llm_runner_industry_sector import llm_industry_sector_dendo
 from application.llm.llm_runner_industry_sector import llm_industry_product_dendogram as dip_llm
 from application.llm.llm_runner_showroom import llm_showroom_histogram as hs_llm
 from application.llm.llm_runner_showroom import llm_showroom_kde as ks_llm
+from application.llm.llm_runner_warehouse import llm_warehouse_histogram_cbm as hs_cbm_llm
+from application.llm.llm_runner_warehouse import llm_warehouse_histogram_mt as hs_mt_llm
+from application.llm.llm_runner_warehouse import llm_warehouse_kde_cbm as ks_cbm_llm
+from application.llm.llm_runner_warehouse import llm_warehouse_kde_mt as ks_mt_llm
 from application.database import database as db
 
 load_dotenv()
@@ -111,6 +115,58 @@ def get_showroom_size_analysis_histogram():
 @app.get('/showroom_size_analysis_kde', status_code=200)
 def get_showroom_size_analysis_kde():
     output, buf = ks_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/warehouse_size_analysis_histogram_cbm', status_code=200)
+def get_warehouse_size_analysis_histogram_cbm():
+    output, buf = hs_cbm_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/warehouse_size_analysis_histogram_mt', status_code=200)
+def get_warehouse_size_analysis_histogram_mt():
+    output, buf = hs_mt_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/warehouse_size_analysis_kde_cbm', status_code=200)
+def get_warehouse_size_analysis_kde_cbm():
+    output, buf = ks_cbm_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/warehouse_size_analysis_kde_mt', status_code=200)
+def get_warehouse_size_analysis_kde_mt():
+    output, buf = ks_mt_llm()
     buf.seek(0)
     img_b64 = base64.b64encode(buf.read()).decode('ascii')
     api_output = JSONResponse(
