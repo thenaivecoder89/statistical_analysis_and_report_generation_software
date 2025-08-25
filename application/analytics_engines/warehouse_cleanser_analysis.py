@@ -25,7 +25,7 @@ def histogram_warehouse_cbm(show_plot: bool):
         'counts': counts.tolist()
     }
     fig, ax = plt.subplots(figsize=(8, 6), dpi=120)
-    df['ideal_showroom_size_in_sqm'].hist(bins=50,range=(0, 5000), color='blue', ax=ax, edgecolor='grey')
+    df_warehouse_cbm['monthly_trade_volumes_cbm_or_mt'].hist(bins=50,range=(0, 5000), color='blue', ax=ax, edgecolor='grey')
     ax.set_title('Trade Volumes for Warehouse (in cbm) - Histogram')
     ax.set_xlabel('Monthly Trade Volumes (in cbm)')
     ax.set_ylabel('Frequency')
@@ -42,7 +42,7 @@ def histogram_warehouse_mt(show_plot: bool):
         'counts': counts.tolist()
     }
     fig, ax = plt.subplots(figsize=(8, 6), dpi=120)
-    df['ideal_showroom_size_in_sqm'].hist(bins=50,range=(0, 5000), color='blue', ax=ax, edgecolor='grey')
+    df_warehouse_mt['monthly_trade_volumes_cbm_or_mt'].hist(bins=50,range=(0, 5000), color='blue', ax=ax, edgecolor='grey')
     ax.set_title('Trade Volumes for Warehouse (in mt) - Histogram')
     ax.set_xlabel('Monthly Trade Volumes (in mt)')
     ax.set_ylabel('Frequency')
