@@ -43,7 +43,10 @@ def llm_willingness_scatterplot():
                             Output JSON with the following structure:
                             {{
                                 "summary:": "three paragraph overview with paragraph 1 focussed on insights on the data correlation, paragraph 2 focussed on insights from the data set and paragraph 3 focussed on recommendations for Bharat Mart.",
-                                "insights": "bullet point based insights for each area of evaluation"
+                                "insights": "bullet point based insights for each area of evaluation in the following format:
+                                            {"statistical_insights":"bullet point based insights on the statistical significance provided in paragraph 1 above."}
+                                            {"core_data_set_insights":"bullet point based insights on the content generated in paragraph 2 above."}
+                                            {"recommendations_for_bharat_mart":"bullet point based insights on the content generated in paragraph 3 above."}"
                             }}
 
                             Do not include any tables in your response.
@@ -89,7 +92,10 @@ def llm_willingness_boxplot():
                             Output JSON with the following structure:
                             {{
                                 "summary:": "three paragraph overview with paragraph 1 focussed on insights on the data correlation, paragraph 2 focussed on insights from the data set and paragraph 3 focussed on recommendations for Bharat Mart.",
-                                "insights": "bullet point based insights for each area of evaluation"
+                                "insights": "bullet point based insights for each area of evaluation in the following format:
+                                            {"statistical_insights":"bullet point based insights on the statistical significance provided in paragraph 1 above."}
+                                            {"core_data_set_insights":"bullet point based insights on the content generated in paragraph 2 above."}
+                                            {"recommendations_for_bharat_mart":"bullet point based insights on the content generated in paragraph 3 above."}"
                             }}
 
                             Do not include any tables in your response.
