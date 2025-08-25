@@ -15,6 +15,8 @@ from application.llm.llm_runner_warehouse import llm_warehouse_histogram_cbm as 
 from application.llm.llm_runner_warehouse import llm_warehouse_histogram_mt as hs_mt_llm
 from application.llm.llm_runner_warehouse import llm_warehouse_kde_cbm as ks_cbm_llm
 from application.llm.llm_runner_warehouse import llm_warehouse_kde_mt as ks_mt_llm
+from application.llm.llm_runner_willingness_to_pay import llm_willingness_scatterplot as spw_llm
+from application.llm.llm_runner_willingness_to_pay import llm_willingness_boxplot as bpw_llm
 from application.database import database as db
 
 load_dotenv()
@@ -167,6 +169,32 @@ def get_warehouse_size_analysis_kde_cbm():
 @app.get('/warehouse_size_analysis_kde_mt', status_code=200)
 def get_warehouse_size_analysis_kde_mt():
     output, buf = ks_mt_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/willingness_to_pay_analysis_scatter_plot', status_code=200)
+def get_willingness_to_pay_analysis_scatter_plot():
+    output, buf = spw_llm()
+    buf.seek(0)
+    img_b64 = base64.b64encode(buf.read()).decode('ascii')
+    api_output = JSONResponse(
+        {
+            'llm_output': output,
+            'img': img_b64
+        }
+    )
+    return api_output
+
+@app.get('/willingness_to_pay_analysis_box_plot', status_code=200)
+def get_willingness_to_pay_analysis_box_plot():
+    output, buf = bpw_llm()
     buf.seek(0)
     img_b64 = base64.b64encode(buf.read()).decode('ascii')
     api_output = JSONResponse(
